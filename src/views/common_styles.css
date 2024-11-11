@@ -1,0 +1,860 @@
+﻿
+/* Resetting some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body, html {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    /*nEW*/
+    overflow-y: auto;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    flex-direction: column;
+
+    /****/
+    height: 100%; /* Make sure the page fills the viewport */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-family: Arial, sans-serif; /* Optional: Choose a font */
+}
+
+
+
+/* Username Form Screen */
+#formSection {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    text-align: center;
+    /*NEW*/
+    background-color: #fff;
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+}
+
+#usernameForm {
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+    #usernameForm label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+
+    #usernameForm input[type="text"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+        #usernameForm input[type="text"]:focus {
+            border: 1px solid #007bff;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* optional: adds a subtle glow effect */
+            outline: none;
+            border-color: #CDE7FF;
+            box-shadow: 0 0 8px rgba(205, 231, 255, 0.6);
+        }
+
+    #usernameForm button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        #usernameForm button[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+
+
+    /* Modal for Login */
+    /* Modal styles */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        z-index: 100; 
+        display: none; /* Hide the overlay by default */
+    }
+
+    .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100; /* Higher than the overlay */
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        display: none;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .modal-close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+#logoutButton{
+    display:none;
+}
+
+
+/* App Screens */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center items vertically */
+    padding: 10px 20px;
+    background-color: #eaeaea;
+    position: sticky;
+    top: 0;
+    z-index: 100; /* Ensure it stays on top of other elements */
+    padding: 0;
+    padding: 20px 20px;
+}
+
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    padding: 5px 20px 5px 20px;
+    background-color: #ffffff;
+    line-height: 0.4rem;
+    border-bottom: 6px #f5f5f5 solid;
+    position: sticky;
+    top: 44px; /* Adjust the value to position it below the header */
+    z-index: 1; /* Ensure it stays on top of other elements */
+    display:none; /*set to block for INFINITE_DISPLAY*/
+}
+
+.avatar  {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+ #userAvatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+/* You can also add a specific class for sticky row avatars */
+.sticky-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.user-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+    .user-details h2 {
+        font-size: 1.2rem;
+    }
+
+.xp-bar {
+    background-color: #d3d3d3;
+    height: 6px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.xp-progress {
+    background-color: #007bff;
+    height: 100%;
+    width: 70%; /* Adjust this percentage based on the XP accumulated */
+}
+
+.xp-score {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+#screens > div {
+    display: none; /* Hide all screens by default */
+}
+
+    #screens > div#home_screen {
+        display: block; /* Show the home screen by default */
+    }
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    background-color: #eaeaea;
+    padding: 10px 0;
+    position: sticky;
+    top: 123px; /* Adjust the value to position it below the header */
+    z-index: 1; /* Ensure it stays on top of other elements */
+    border-bottom: 1px #ccc solid;
+    display: none; /*INFINITE_DISPLAY*/
+    display: block; /*normal tabbed interface*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+}
+
+button.tab {
+    background: none !important;
+    border: none !important;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+    button.tab.active {
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 10px;
+    }
+
+.tab {
+    display: inline-block;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+    .tab.active {
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 10px;
+    }
+
+.tab-content {
+    display: block; /* INFINITE SCROLLING*/
+    display: none;
+    /* modern styling*/
+    background-color: #FFFFFF; /* White background */
+    /*border: 1px solid #E5E5E5; */ /* Light gray border */
+    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */ /* Soft shadow */
+    padding: 0px; /* Inner padding */
+    border-radius: 8px; /* Rounded corners */
+    margin: 0 10px;
+    padding-bottom: 81px;
+}
+
+    .tab-content.active {
+        display: block;
+    }
+    .tab-content.hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    }
+
+/* Optionally, add styles for the tab content area */
+#rank-tab-content {
+   /* border: 1px solid #E7E7E7;*/
+}
+.rankText {
+    line-height: 2rem;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.logoA-homescreen {
+    color: #007bff;
+    left: 0;
+}
+
+#leaderboard-header {
+    background: #ffffff;
+    background-color: #FFFFFF;
+    /*border: 1px solid #E5E5E5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+    padding: 0px;
+    padding-top: 20px;
+    border-radius: 8px;
+    margin: 0;
+    margin-bottom: 20px;
+    /* sticky style*/
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1;
+}
+
+    #leaderboard-header > h1 {
+        text-align: center;
+        font-size: 1.5rem;
+        padding: 10px;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+
+    .username-search {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    .username-search input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 60%;
+        margin-right: 10px;
+    }
+
+        .username-search button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+.leaderboard {
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #dcdcdc;
+    padding: 10px 0 10px 10px;
+}
+
+    .leaderboard-item img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+
+.rank, .xp {
+    font-weight: bold;
+}
+
+.sticky-row {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    border-top: 2px solid #F5F5F5; 
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    /*from user-summary CSS*/
+    background-color: #CDE7FF;
+    /*    background-color: #FFD806; */
+    position: sticky;
+    bottom: 0px;
+    line-height: 0.4rem;
+}
+
+.user-rank-card {
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+    background-color: #CDE7FF;
+    line-height: 1.2rem;
+    border-top: 6px #f5f5f5 solid;
+    position: fixed; /* Change to fixed */
+    z-index: 1;
+    bottom: 62px; /* Keep it at the bottom */
+    left: 0; /* Align to the left */
+    right: 0; /* Align to the right */
+    margin: 0;
+    padding: 10px 0;
+    display: none; /* Keep this if you want to show/hide */
+}
+
+
+.highlight-row {
+    background-color: #FFD806;
+}
+
+.user-summary {
+    background-color: #CDE7FF;
+    position: sticky;
+    bottom: 44px;
+    line-height: 0.4rem;
+    padding: 20px 20px 2px 20px;
+}
+
+.username {
+    color: #333; /* Darker text color */
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.stat-label {
+    color: #666; /* Medium text color */
+}
+
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #ffffff;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    border-top: 1px solid #ddd; /* Add a border to distinguish it from the content */
+    padding: 10px 0;
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    font-size: 12px; /* Smaller text for a compact layout */
+    padding: 5px 0;
+    text-align: center;
+    width: 20%; /* Ensure the buttons fit within 375px */
+    color: #000;
+}
+
+    .nav-button i {
+        font-size: 20px; /* Font Awesome icon size */
+    }
+
+    .nav-button span {
+        display: block;
+        font-size: 10px; /* Smaller text below the icon */
+    }
+
+/* drop down menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    z-index: 100; /* Higher z-index to appear on top */
+    opacity: 0; /* Initial opacity for smooth transition */
+    transition: opacity 0.2s; /* Smooth transition effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 200px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+    .dropdown-menu.active {
+        display: block;
+        opacity: 1; /* Full opacity when active */
+    }
+
+    .dropdown-menu button.menu-item {
+        width: 100%;
+        padding: 10px;
+        text-align: left;
+        border: none;
+        background: none;
+    }
+
+        .dropdown-menu button.menu-item:hover {
+            background-color: #f0f0f0;
+        }
+
+/* Basic styles to show/hide sections */
+#appSection {
+    display: none; /* Initially hidden */
+    max-height: calc(100vh - 64px); /* to ensure the content scrolls above the fixed bottom nav menu,*/
+    overflow: auto;
+}
+
+#results {
+    font-size: 1rem;
+    color: red;
+    margin: 20px;
+    display: none; /*INFINITE_DISPLAY*/
+}
+
+/* Leaderboard CSS (rank.js) */
+.leaderboard-item.winner {
+    /*background-color: #cff3d6;*/ /* Light green background */
+}
+
+
+.rank-xp {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px;
+    display: inline-block;
+    width: 100px; /* Adjust the width as needed */
+    text-align: right;
+}
+
+.leaderboard-item {
+    display: grid;
+    grid-template-columns: 11px 16px 112px 92px 81px;
+    align-items: center;
+    gap: 10px; /* Add some gap between columns */
+}
+
+.rank {
+    grid-column: 1;
+}
+
+.leaderboard-item img {
+    grid-column: 2;
+    width: 40px; /* Adjust image size as needed */
+    height: 40px;
+    border-radius: 50%;
+}
+
+.rank-username {
+    grid-column: 4;
+}
+
+.rank-xp {
+    grid-column: 3;
+    text-align: right;
+}
+
+.rank-icon-container {
+    grid-column: 5;
+    color: green;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1rem;
+}
+    .rank-icon-container .fa-trophy {
+        font-size: 1.0rem;
+        color: red;
+    }
+    .rank-icon-container .fa-gift {
+        font-size: 1.0rem;
+        color: #777;
+    }
+
+    .winner-notification {
+        grid-column: 5;
+        color: green;
+        font-weight: bold;
+        background-color: #eee;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 0.8rem;
+        /*new stuff*/
+        line-height: 1rem;
+        margin-right: 12px;
+        padding: 0px;
+        /* border: 1px red dashed; */
+        /*width: min-content;*/
+        margin-left: 10px;
+    }
+
+.winner-group {
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.active-user {
+    /* Styles for active user (e.g., highlight) */
+}
+
+.leaderboard-item.active-user img {
+    border: 2px solid #F7DC6F; /* Golden color */
+    border-radius: 50%;
+    box-shadow: 0 0 5px 2px #F7DC6F; /* Golden color with some blur */
+}
+
+/* Styles for the tab container */
+#leaderboard-tabs {
+    display: flex;
+    width: 100%;
+    border-bottom: 2px solid #CDE7FF; /* Blue border for the tab container */
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #CDE7FF;
+    background-color: #E7F1FF; /* Softer blue background */
+    color: #333;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+    .tab-button.active {
+        background-color: #CDE7FF; /* Active tab background color */
+        color: #000; /* Active tab text color */
+        border-bottom: 2px solid #CDE7FF; /* Blue border for active tab */
+    }
+
+
+
+.week-tabs {
+    background: none;
+    border: none;
+    font-size: 0.8rem;
+    padding: 5px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: baseline;
+    position: sticky;
+    top: 43px; /* Adjust the value to position it below the header */
+    z-index: 1; /* Ensure it stays on top of other elements */
+    background-color: #eaeaea;
+    background-color: #ffffff;
+    border-top: 1px #ccc solid;
+}
+
+.week-tab {
+    background: none;
+    border: none;
+    padding: 0px 0px;
+}
+
+    .week-tab.active {
+        font-weight: bold;
+        color: #007bff;
+        font-size: 1.1rem;
+        border-bottom: 3px #007bff solid;
+    }
+
+#countdown-timer {
+    text-align: center;
+    display: block;
+    color: gray;
+}
+
+
+#profile_screen {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    margin: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.letter {
+    display: inline-block; /* Ensure letters can be animated independently */
+    position: relative; /* Allow for absolute positioning */
+}
+
+
+
+
+/* SPLASH SCREEN*/
+#splashScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff; /* Change as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Stack items vertically */
+    z-index: 1000;
+}
+
+@keyframes throb_old {
+    0% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: 0.50;
+    }
+
+    50%% {
+        opacity: 0.25;
+    }
+
+    75%% {
+        opacity: 0.50;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes throb {
+    0% {
+        opacity: 1;
+    }
+
+    10% {
+        opacity: 0.95;
+    }
+
+    20% {
+        opacity: 0.8;
+    }
+
+    30% {
+        opacity: 0.6;
+    }
+
+    40% {
+        opacity: 0.05;
+    }
+
+    50% {
+        opacity: 0.05;
+    }
+
+    55% {
+        opacity: 0.2;
+    }
+
+    65% {
+        opacity: 0.5;
+    }
+
+    75% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.95;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+.text-logo {
+    width: 100%;
+    text-align: center;
+    position: relative; /* Make positioning relative for absolute children */
+    font-family: Arial, sans-serif;
+    margin: auto;
+    color: #000000;
+    font-size: 1.5rem;
+}
+
+.letter {
+    display: inline-block; /* Ensure letters can be animated independently */
+    position: relative; /* Allow for absolute positioning */
+}
+
+.logoA {
+    font-size: inherit;
+    color: #007bff;
+    position: relative;
+    left: 0%; /* Start off-screen to the right */
+}
+
+@keyframes bounceIn {
+    0% {
+        top: -20px;
+    }
+
+    20% {
+        top: 15px;
+    }
+
+    40% {
+        top: -5px;
+    }
+
+    60% {
+        top: 5px;
+    }
+
+    80% {
+        top: -2px;
+    }
+
+    100% {
+        top: 0px;
+    }
+}
+
+/* LOGO THROBING*/
+#logo {
+    position: relative; /* Ensure positioning for children */
+}
+
+    #logo img {
+        width: auto; /* or fixed width */
+        height: 5rem;
+
+    }
+    #logo .text-logo {
+        height: 5rem; /* Adjust height as needed */
+        display: block; /* Ensure block-level for centering */
+        margin: 0 auto; /* Center horizontally */
+    }
+
+    /* Animate ∂ logo dropping in */
+    #logo .partial-derivative-logo {
+        height: 5rem; /* Keep this consistent with the main logo */
+        position: absolute; /* Position it relative to the #logo container */
+        left: calc(50% - 59px); /* Adjust as needed to overlap */
+        top: 0; /* Align vertically */
+        transform: translateX(-50%); /* Center it over the text logo */
+        /*margin-left: -213px; */ /* Adjust as needed */
+    }
+
+/* Animate entire logo throbbing */
+#logo {
+    /*
+
+    animation: throb 2s ease-in-out infinite;
+    animation-delay: 3s;*/ /* Delay after bounceIn completes */
+}
+
+
+

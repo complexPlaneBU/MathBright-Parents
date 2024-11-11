@@ -1,0 +1,444 @@
+﻿
+/* Reward cards container */
+.reward-bonus-container_old {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 600px; /* Max width to fit 2 cards */
+    margin: 0 auto;
+}
+.reward-bonus-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Space between cards */
+    justify-content: center; /* Center the cards horizontally */
+    padding: 16px; /* Space around the container */
+}
+.reward-bonus-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Space between cards */
+    justify-content: center; /* Center the cards horizontally */
+    padding: 16px; /* Space around the container */
+    max-width: 600px; /* Added max-width */
+    margin: 0 auto; /* Added margin to center the container */
+    background: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.reward-parent-container {
+    padding: 16px; /* Space around the container */
+    background: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Reward card modern styling */
+.reward-card {
+    background: #fff;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
+    overflow: hidden; /* Hide anything outside the border radius */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    width: calc(50% - 16px); /* Two cards side by side with spacing */
+    position: relative; /*allow for button to use absolute positioning for filling image size*/
+    margin-bottom: 20px;
+}
+
+    .reward-card img {
+        width: 100%; /* Full width */
+        height: auto; /* Maintain aspect ratio */
+        display: block; /* Remove bottom space */
+    }
+
+    .reward-card button {
+        background-color: #4CAF50; /* Green button color */
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px; /* Rounded corners */
+        cursor: pointer;
+    }
+
+        .reward-card button:hover {
+            background-color: #3e8e41; /* Darker green on hover */
+        }
+
+        .reward-card button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+    .reward-card:hover {
+        transform: translateY(-4px); /* Lift effect on hover */
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Enhanced shadow on hover */
+    }
+
+.reward-details {
+    padding: 16px; /* Space inside the card */
+}
+
+    .reward-details p {
+        margin: 0; /* Remove default margin */
+        font-size: 16px; /* Modern font size */
+        color: #333; /* Darker text color */
+    }
+
+    .reward-details button {
+        width: 100%; /* Full width button */
+        padding: 10px;
+        background: #007bff; /* Primary button color */
+        color: #fff; /* Button text color */
+        border: none;
+        border-radius: 4px; /* Rounded button corners */
+        cursor: pointer;
+        transition: background 0.3s ease; /* Smooth color transition */
+        background: #ffffff;
+        color: green;
+        padding-top: 10px;
+    }
+
+        .reward-details button:hover {
+            background: #eeeeee; /* Darker shade on hover */
+        }
+
+        .reward-details button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .reward-card {
+        width: calc(100% - 16px); /* Full width on small screens */
+    }
+}
+
+.show {
+    display: block !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Subtle shadow */
+    z-index: 1000; /* Ensure modals are on top */
+}
+
+    .modal button {
+        margin: 5px;
+        background: #007bff; /* Primary button color */
+        color: #fff; /* Button text color */
+        border: none;
+        border-radius: 4px; /* Rounded button corners */
+        cursor: pointer;
+        padding: 10px 15px;
+        transition: background 0.3s ease; /* Smooth color transition */
+    }
+
+        .modal button:hover {
+            background: #0056b3; /* Darker shade on hover */
+        }
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    margin: 20% auto;
+    padding: 20px;
+    width: 66%;
+}
+
+#close-modal {
+    position: absolute;
+    top: 100px;
+    right: 10px;
+    cursor: pointer;
+    background-color: #FF5733;
+}
+
+.reward-card.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+#checkout-btn {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    background-color: #28A745;
+    color: #fff;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: background 0.3s ease;
+    font-size: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Subtle shadow */
+    font-weight: bold;
+    z-index: 2; /* Higher z-index than the overlay */
+}
+
+    #checkout-btn:hover {
+        background-color: #3C9F40; /* Darker green on hover */
+    }
+
+#cancelCheckout-btn {
+    position: fixed;
+    bottom: 170px;
+    right: 30px;
+    background-color: #FF5733;
+    color: #fff;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: background 0.3s ease;
+    font-size: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Subtle shadow */
+    font-weight: bold;
+    z-index: 2; /* Higher z-index than the overlay */
+}
+    #cancel-btn:hover {
+        background-color: #eF4723; /* Darker red on hover */
+    }
+
+button.add-to-cart.removed {
+    color: #FF5733; /* Change color to red */
+    font-weight: bold;
+}
+
+
+/* Profile/Dashboard Area */
+.rewards-top-section {
+    position: absolute;
+    width: 100%;
+    background-color: #f0f0f0;
+    background-color: #eaeaea;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
+    line-height: 0px;
+    position: sticky;
+    top: 0px;
+    align-content: flex-start;
+    z-index: 99;
+}
+
+.rewards-profile-dashboard {
+    position: absolute;
+    display: flex;
+    padding: 10px;
+    background-color: #f0f0f0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
+    line-height: 0px;
+    background: #ffffff;
+    position: sticky;
+    top: 0px;
+    /* flex*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 99;
+    line-height: 0.4rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /*new*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    align-items: center;
+    display: none;  
+}
+
+.rewards-user-info {
+    padding-bottom: 10px;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rewards-avatar {
+    width: 80px;
+    height: auto;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.rewards-username {
+    font-weight: bold;
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+    padding-top: 10px;
+}
+
+.rewards-claim-info {
+    color: #28A745;
+    /* color: #007bff; */
+}
+
+.rewards-cart-info {
+    color: #007bff;
+}
+
+.reward-instructions {
+    background: #fff;
+    padding: 10px;
+    z-index: 1000;
+    margin: 1px;
+    text-align: center;
+    color: #007bff;
+}
+
+.no-rewards {
+    color: #FF5733; /* a bright, attention-grabbing color */
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.4rem;
+}
+.rewards-add-to-cart-label  > p {
+    text-align: center;
+    font-weight: bold;
+    color: #28A745;
+    margin-top: 10px;
+}
+.add-to-cart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#confirmation-modal img {
+    width: 80%;
+    height: auto;
+    display: block; /* Add this to center the image horizontally */
+    margin: 0 auto; /* Add this to center the image horizontally */
+}
+
+.rewards-tab-switcher {
+    display: flex;
+    justify-content: space-around;
+    background-color: #eaeaea;
+    padding: 10px 0;
+    position: sticky;
+    top: 123px;
+    z-index: 1;
+    border-bottom: 1px #ccc solid;
+    display: none;
+    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.rewards-tab-button {
+    transition: background 0.3s ease;
+    /* aligned style*/
+    display: inline-block;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    /*new*/
+    color: #333;
+    font-weight: normal;
+    border-bottom: none;
+    border-radius: 0px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    font-size: 1rem;
+    padding: 0;
+}
+
+    .rewards-tab-button.active {
+        color: #fff;
+        border-radius: 10px;
+        /*new*/
+        color: #007bff;
+        font-weight: bold;
+        border-bottom: solid #007bff 3px;
+        border-radius: 0px;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        font-size: 1.2rem;
+        padding: 0;
+    }
+
+    .rewards-tab-button:hover {
+        
+    }
+
+
+    /* just for rewards.css*/
+
+#rewards_available_info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: bold;
+    align-content: stretch;
+    justify-content: space-evenly;
+}
+
+.screen_title {
+    /*
+    display: block;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 14px;
+    margin-bottom: 0;
+    line-height: 2rem;
+        */
+}
+
+#openLoginModal, #logoutButton {
+    color: #007bff;
+    font-weight: bold;
+}

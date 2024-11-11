@@ -1,0 +1,98 @@
+﻿.gems-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gems-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+    .gems-header i {
+        font-size: 36px;
+        margin-right: 10px;
+        color: #660066; /* a deep purple color to represent a gem */
+        color: #28A745; /* a deep purple color to represent a gem */
+    }
+
+.gems-content {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+}
+
+.gems-count-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    flex-direction: row;
+    justify-content: center;
+}
+
+    .gems-count-container i {
+        font-size: 36px;
+        color: #660066; /* deep purple color */
+        color: #28A745; /* deep purple color */
+    }
+
+.gems-count {
+    font-size: 24px;
+    font-weight: bold;
+    color: #660066; /* deep purple color */
+    color: #28A745; /* deep purple color */
+    margin-right: 10px; /* added space between gem count and icon */
+}
+
+
+
+.gems-usage ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.gems-usage li {
+    margin-bottom: 10px;
+}
+
+.gems-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gems-header h3 {
+    margin-bottom: 20px;
+}
+
+.gems-actions {
+    margin-bottom: 20px;
+}
+
+.spend-gems-btn {
+    background-color: #28A745;
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.gems-usage ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.gems-usage li {
+    margin-bottom: 10px;
+}

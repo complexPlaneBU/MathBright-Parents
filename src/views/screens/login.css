@@ -1,0 +1,174 @@
+﻿
+
+.login-container {
+    max-width: 400px; /* Maximum width of the form */
+    margin: 0 auto; /* Center the form horizontally */
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px;
+}
+
+
+.login-screen {
+    width: 90%;
+}
+
+.login-logo {
+    font-weight: bold;
+    font-size: 2.4rem;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    color: #000;
+}
+
+    .login-logo a {
+        text-decoration: none;
+        box-sizing: border-box; /* Include padding and border in element's total width and height */
+        color: #000;
+    }
+
+#loginForm {
+    padding-top: 40px;
+    min-width: 200px;
+    /* width: 250px; */
+    min-width: 200px;
+}
+
+
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+.link-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+    .link-container a {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+        .link-container a:hover {
+            text-decoration: underline;
+        }
+
+p {
+    font-size: 14px;
+}
+
+
+
+
+/**** OLD STUFF */
+
+/* Username Input Screen styles */
+.username-screen {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 80%;
+    max-width: 600px; /* Adjust max-width as per design requirements */
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative; /* Position for absolute error message */
+    margin-top: 60px; /* Add margin-top to avoid overlap with fixed top bar */
+}
+
+    .username-screen h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+#username-input {
+    width: calc(100% - 20px); /* Adjust input width */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+    #username-input:focus {
+        outline: none;
+        border-color: #66afe9;
+        box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+    }
+
+#username-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    #username-form button:hover {
+        background-color: #45a049;
+    }
+
+/* Error message style */
+#username-error-message {
+    position: absolute;
+    bottom: -25px; /* Adjust vertical position */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f44336; /* Red background color */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease-in-out;
+}
+
+    /* Show error message animation */
+    #username-error-message.show {
+        opacity: 1;
+    }
+
+

@@ -1,0 +1,12 @@
+{
+	"template1": {
+		"subject": "{{userFirstName}}'s Reward Selection Needs Confirmation"
+	},
+	"template2": {
+		"subject": "{{userFirstName}}'s Bonus Reward is on its way"
+	},
+	"template3": {
+		"subject": "{{userFirstName}} Needs to Select a Different Reward"
+	}
+
+} 

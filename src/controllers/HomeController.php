@@ -1,0 +1,84 @@
+<?php
+require_once 'BaseController.php';
+
+class HomeController extends BaseController {
+    public function __construct() {
+        parent::__construct('parent_dashboard_view');
+    }
+
+    public function indexAction() {
+         {
+            // Default index action
+            // =====================
+            $viewModel = new stdClass();
+
+            // return username if someone is logged in
+            $model = $this->model('LoginModel');
+            $isAuthenticated = $model->isAuthenticated();
+            $viewModel->username = null; // default assignment
+
+
+            //Password1
+            $verbose = 2;
+            $viewModel->verbose = $verbose;
+
+            if (isset( $_GET['verbose']) ) {
+                $viewModel->verbose = $_GET['verbose'];
+            }
+
+            
+            //if ($isAuthenticated['userData']['username'] == "debug") {
+            if ($isAuthenticated && isset($isAuthenticated['userData']['username']) && $isAuthenticated['userData']['username'] == "debug") {
+                echo json_encode([
+                    'success' => true,
+                    'data' => 'in HomeController',
+                    'debug' => $isAuthenticated ,
+                    'verbose' => $verbose
+                ]); 
+            }
+
+            if ($isAuthenticated && isset($isAuthenticated['loggedIn']) && $isAuthenticated['loggedIn']) {
+                $viewModel->loggedIn = true;
+                $viewModel->username = $isAuthenticated['userData']['username'];
+                $viewModel->user_id = $isAuthenticated['userData']['user_id'];
+                $data = ['error' => 'Default index action executed. No specific action requested.'];
+            } else {
+                $viewModel->loggedIn = false;
+                $data = ['error' => 'Default index action executed. No specific action requested.'];
+            }
+
+            $this->loadView('parent_dashboard_view', $viewModel);
+        }
+    }
+
+
+    public function routeAction($confirm, $id, $token) {
+        // Validate and sanitize inputs
+        $confirm = htmlspecialchars($confirm, ENT_QUOTES, 'UTF-8');
+        $id = (int)$id;
+        $token = htmlspecialchars($token, ENT_QUOTES, 'UTF-8');
+
+        // Construct the cleaner URL
+        $url = "index.php?controller=RewardsController&action=ConfirmReward&confirm={$confirm}&id={$id}&token={$token}";
+
+        // Redirect to the RewardsController action
+        header("Location: $url");
+        exit();
+    }
+
+
+    public function sendEmailConfirmationAction() {
+        // Example usage: Generate a cleaner URL for email links
+        $confirm = 'yes';
+        $id = 6;
+        $token = '663adf05e82b8f8ea84e983960313cf1';
+
+        // Call the redirect method
+        $this->redirectToRewards($confirm, $id, $token);
+    }
+
+    // You can define other methods as needed
+}
+
+//end
+?>

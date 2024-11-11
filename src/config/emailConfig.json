@@ -1,0 +1,33 @@
+{
+	"mailer": {
+		"host": "sandbox.smtp.mailtrap.io",
+		"smtp_auth": true,
+		"port": 2525,
+		"username": "bbf355961b8104",
+		"password": "865ca35b3afb16",
+		"from_email": "hello@mathbright.co",
+		"from_name": "MathBright"
+	},
+	"mailer-production": {
+		"host": "mail.mathbright.co",
+		"smtp_auth": true,
+		"port": 587,
+		"username": "hello@mathbright.co",
+		"password": "iforgot-gottafind-and-add",
+		"from_email": "hello@mathbright.co",
+		"from_name": "MathBright"
+	},
+	"mailer-dev": {
+		"host": "sandbox.smtp.mailtrap.io",
+		"smtp_auth": true,
+		"port": 2525,
+		"username": "bbf355961b8104",
+		"password": "865ca35b3afb16",
+		"from_email": "hello@mathbright.co",
+		"from_name": "MathBright"
+	},
+	"bonus_reward_confirmation_email": {
+		"subject": "{{userFirstName}} Claimed a Bonus Reward"
+	}
+
+} 
