@@ -1,7 +1,9 @@
 ﻿let DEBUG_DATA = 1;
+
+/*
 import { getUserAvatarUrl } from './utils.js';
 import { updateHomeScreen } from './screens/home.js';
-import { renderrLoginHTML } from './screens/login.js';
+
 import { getRewardsInfoForUser } from './screens/rewards.js';
 import { updateRewardsScreen } from './screens/rewards.js';
 import { updateRewardsDashboard } from './screens/rewards.js';
@@ -9,6 +11,10 @@ import { initialize as hometInitialize } from './screens/home.js';
 import { updateLeaderboard } from './learner_dashboard/rank.js';
 import { updateLeaderboardAfterSearch } from './learner_dashboard/rank.js';
 
+*/
+import { renderrLoginHTML } from './screens/login.js';
+import { AuthStateMachine } from './screens/signup.js';
+import { renderSignupHTML } from './screens/signup.js';
 import appState from './state.js';
 
 window.lastTwoWeeksStatsData = null; // Make it a global variable
@@ -81,7 +87,6 @@ async function updateApp() {
 
 async function initializeApp() {
 
-    renderrLoginHTML();
 
     /*
     const logoA = document.querySelector('.partial-derivative-logo');
@@ -108,6 +113,20 @@ async function initializeApp() {
         appSection.style.display = 'none';
     }
     */
+
+    //renderrLoginHTML();
+    renderSignupHTML();
+
+
+    const authStateMachine = new AuthStateMachine();
+
+    // Get the login and signup screens
+    const loginScreen = document.getElementById('login-screen');
+    const signupScreen = document.getElementById('signup-screen');
+
+    // Render initial login screen
+    //loginScreen.innerHTML = loginHTML;
+
 
 }
 
@@ -481,7 +500,7 @@ function initializeLoginModalEventListeners() {
 
 
     // Login Form submission handling
-    $('#loginForm').off('submit').on('submit', function (event) {
+    $('#loginForm1').off('submit').on('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission
 
         console.log("in #loginForm submit button event handler");

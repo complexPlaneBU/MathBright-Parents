@@ -1,5 +1,42 @@
-﻿
+﻿/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa; /* Light background color */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Centering Container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Screens */
+.screen {
+    display: none;
+    width: 100%;
+}
+
+    .screen.active {
+        display: block;
+    }
+
+/* Login Container */
 .login-container {
     max-width: 400px; /* Maximum width of the form */
     margin: 0 auto; /* Center the form horizontally */
@@ -11,35 +48,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 80px;
-}
-
-
-.login-screen {
-    width: 90%;
 }
 
 .login-logo {
     font-weight: bold;
     font-size: 2.4rem;
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
-    color: #000;
+    color: #007bff; /* Logo color matching primary button */
+    margin-bottom: 20px;
 }
 
-    .login-logo a {
-        text-decoration: none;
-        box-sizing: border-box; /* Include padding and border in element's total width and height */
-        color: #000;
-    }
-
-#loginForm {
-    padding-top: 40px;
-    min-width: 200px;
-    /* width: 250px; */
-    min-width: 200px;
-}
-
-
+/* Form Elements */
 .form-group {
     width: 100%;
     margin-bottom: 15px;
@@ -61,6 +79,14 @@ input[type="password"] {
     font-size: 14px;
 }
 
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+/* Button Styles */
 .btn {
     width: 100%;
     padding: 12px;
@@ -77,6 +103,7 @@ input[type="password"] {
         background-color: #0056b3;
     }
 
+/* Link Styles */
 .link-container {
     width: 100%;
     text-align: center;
@@ -93,82 +120,144 @@ input[type="password"] {
             text-decoration: underline;
         }
 
-p {
+/* Form for OTP Screen */
+#otp-form {
+    width: 100%;
+}
+
+#otp {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+    #otp:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+/* User Info Screen */
+.user-info-form {
+    width: 100%;
+    margin-top: 20px;
+}
+
+    .user-info-form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+        .user-info-form input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+/* Kids Registration Screen */
+.kids-registration-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     font-size: 14px;
 }
 
+    .kids-registration-form input:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
 
-
-
-/**** OLD STUFF */
-
-/* Username Input Screen styles */
-.username-screen {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 80%;
-    max-width: 600px; /* Adjust max-width as per design requirements */
-    text-align: center;
-    margin-bottom: 20px;
-    position: relative; /* Position for absolute error message */
-    margin-top: 60px; /* Add margin-top to avoid overlap with fixed top bar */
+/* Subscription Page */
+.subscription-options label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
 }
 
-    .username-screen h2 {
+.subscription-options input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Payment Page */
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+    .payment-form button {
+        padding: 12px 24px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+        .payment-form button:hover {
+            background-color: #0056b3;
+        }
+
+/* Confirmation Page */
+.confirmation-container {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+    .confirmation-container h2 {
         font-size: 24px;
         margin-bottom: 20px;
-        color: #333;
+        color: #007bff;
     }
 
-#username-input {
-    width: calc(100% - 20px); /* Adjust input width */
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-    #username-input:focus {
-        outline: none;
-        border-color: #66afe9;
-        box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
-    }
-
-#username-form button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
+/* Back Button */
+.back-button {
+    background-color: #f4f4f4;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    margin-top: 15px;
     cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
-    #username-form button:hover {
-        background-color: #45a049;
+    .back-button:hover {
+        background-color: #ddd;
     }
 
-/* Error message style */
-#username-error-message {
+    .back-button:focus {
+        outline: none;
+    }
+
+/* Error Message */
+#error-message {
     position: absolute;
-    bottom: -25px; /* Adjust vertical position */
+    bottom: -25px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #f44336; /* Red background color */
+    background-color: #f44336;
     color: white;
     padding: 10px 20px;
     border-radius: 4px;
     font-size: 14px;
-    opacity: 0; /* Initially hidden */
+    opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
 
-    /* Show error message animation */
-    #username-error-message.show {
+    #error-message.show {
         opacity: 1;
     }
-
-

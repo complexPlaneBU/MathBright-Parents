@@ -44,39 +44,19 @@
     </div>
 </div>
 
-    <!-- Username Input Screen -->
-    <div id="login-screen" class="login-screen">
-        <h2>Signup</h2>
-        <form id="username-form">
-            <input type="text" id="username-input" placeholder="Type Username Here" required>
-            <button type="submit">Show Stats</button>
-        </form>
-        <!-- Error message container -->
-        <div id="username-error-message"></div>
-    </div>
+
+<div id="loginSection">
+    <!--  Login Screen -->
+    <div id="login-screen2"></div>
+
+    <!--  Signup Screen -->
+    <div class="signup_login_screens" id="signup_login_screens"></div>
+
+</div>
 
 
 <!-- Main App Content -->
 <div id="appSection">
-
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h2>Login</h2>
-            <form id="loginForm">
-                <label for="username">Username:</label>
-                <input type="text" id="login-username" name="username" required>
-                <br>
-                <label for="password">Password:</label>
-                <input type="password" id="login-password" name="password" required>
-                <br>
-                <button type="submit">Login</button>
-            </form>
-            <div id="loginResponse"></div>
-        </div>
-    </div>
-
 
     <div id="screens">
 
@@ -122,19 +102,7 @@
 </div>
    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!--<script type="module" src="src/views/learner_dashboard.js"></script> -->
     <script type="module" src="src/views/parent_dashboard.js"></script> 
 
-
-<!--    <script type="module" src="src/views/menuManager.js"></script>
-
-    <script type="module" src="src/views/screens/home.js"></script>
-
-    <script type="module" src="src/views/learner_dashboard/rank.js"></script> 
-    <script type="module" src="src/views/learner_dashboard/raffle.js"></script>
-    <script type="module" src="src/views/learner_dashboard/gems.js"></script>
-    <script type="module" src="src/views/learner_dashboard/lessons.js"></script>
-
--->
 </body>
 </html>

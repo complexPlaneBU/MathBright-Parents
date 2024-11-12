@@ -11,7 +11,8 @@
     document.head.appendChild(link);
 
 
-    export function renderrLoginHTML() {
+export async function renderrLoginHTML() {
+    try {
         const html = `
             <div class="login-container">
             <!-- Logo -->
@@ -51,5 +52,11 @@
         screenContainer.innerHTML = html;
 
 
+    return Promise.resolve();
+} catch (error) {
+    console.error('Error rendering signup HTML:', error);
+    return Promise.reject(error);
 }
 
+
+}

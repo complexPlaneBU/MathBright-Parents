@@ -29,6 +29,10 @@ body, html {
 
 
 
+.signup-container {
+    display: block;
+}
+
 /* Username Form Screen */
 #formSection {
     position: absolute;
