@@ -1,6 +1,5 @@
 ﻿let DEBUG_DATA = 1;
 
-renderRewardsScreenHTML
 
 // Create a <link> element
 const link = document.createElement('link');
