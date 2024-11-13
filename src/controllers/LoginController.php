@@ -15,6 +15,36 @@ class LoginController extends BaseController {
         return "Hello World from LoginController!";
     }
 
+    
+
+    public function saveEmailAction() {
+        // Get the email from the POST request (assuming it's sent as JSON)
+        $postData = json_decode(file_get_contents('php://input'), true);
+    
+        // Check if email is provided
+        if (empty($postData['email'])) {
+            echo json_encode(['success' => false, 'error' => 'Email is required']);
+            return;
+        }
+
+        // Get the email from the POST data
+        $email = $postData['email'];
+
+        // Call the model's saveEmail method to store the email in the database
+        $model = $this->model('LoginModel');
+        $response = $model->saveEmail($email);
+
+        // Check if the response from the model is successful
+        if ($response && isset($response['success']) && $response['success'] === true) {
+            // Return a success response
+            echo json_encode(['success' => true, 'message' => 'Email saved successfully']);
+        } else {
+            // Return an error response
+            echo json_encode(['success' => false, 'error' => 'Failed to save email']);
+        }
+    }
+
+
     public function loginAction() {
 
         $data = json_decode(file_get_contents('php://input'), true);

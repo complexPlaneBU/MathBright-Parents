@@ -205,9 +205,40 @@ export class AuthStateMachine {
         event.preventDefault();
         this.email = document.getElementById('signup-email').value;
 
-        // Send OTP (simulated)
+        // Store email address in database
+
+        // Send email with OTP (One Time Password)
+
+        // Switch to the OTP screen
         this.state = 'otp';  // Transition to OTP screen
         this.updateUI();
+    }
+
+
+
+
+    handleSignup(event) {
+        event.preventDefault();
+        this.email = document.getElementById('signup-email').value;
+
+        // Validate email address
+        if (!this.email) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+
+        storeEmailAddress(this.email)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Switch to the OTP screen
+                    this.state = 'otp';  // Transition to OTP screen
+                    this.updateUI();
+                } else {
+                    alert(data.error || 'An unknown error occurred');
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
 
     // Verify OTP form submission
@@ -348,7 +379,36 @@ export class AuthStateMachine {
 
 }
 
+    async function storeEmailAddress(email) {
+        try {
+            const url = 'index.php';
+            const postData = {
+                controller: 'LoginController',
+                action: 'saveEmail',
+                email: email
+            };
 
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                return data;
+            } else {
+                console.log('storeEmailAddress failed:', data.error || 'Unknown error');
+            }
+        } catch (error) {
+            console.error('storeEmailAddress error:', error.message);
+        }
+
+        return { success: false };  // Return failure if an error occurred
+    }
 
 export async function renderSignupHTML_old() {
     try {

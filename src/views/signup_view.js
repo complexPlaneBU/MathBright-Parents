@@ -8,8 +8,6 @@ import { AuthStateMachine } from './screens/signup.js';
 import { renderSignupHTML } from './screens/signup.js';
 import appState from './state.js';
 
-let state = 'nop';
-
 document.addEventListener('DOMContentLoaded', async function () {
     initializeApp();
 })
@@ -21,9 +19,9 @@ async function initializeApp() {
     //renderSignupHTML();
 
     const loginSection = document.getElementById('loginSection');
-    state = loginSection.getAttribute('data-state');
+    const initialState = loginSection.getAttribute('data-state');
 
-    const authStateMachine = new AuthStateMachine(state);
+    const authStateMachine = new AuthStateMachine(initialState);
 
 }
 

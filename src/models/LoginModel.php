@@ -14,6 +14,42 @@ class LoginModel {
         return $stmt->fetchColumn(); // Returns the user_id
     }
 
+    
+    public function saveEmail($email) {
+        // Ensure the session is started if it's not already
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Make sure we have a valid email
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return null;  // Invalid email, return null (you might want to handle this differently)
+        }
+
+        // Insert the email into the signup_temp table
+        $query = "INSERT INTO signup_temp (email) VALUES (:email)";
+        try {
+            // Get the database connection (assuming a PDO instance is available via $this->db)
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        
+            // Execute the query
+            if ($stmt->execute()) {
+                // Return success, you can also return the ID of the inserted row
+                return ['success' => true];
+            } else {
+                // If query execution fails
+                return ['success' => false];
+            }
+        } catch (PDOException $e) {
+            // Log error and return failure
+            error_log('Database error: ' . $e->getMessage());
+            return ['success' => false];
+        }
+    }
+
+
+
     public function login($username, $password) {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
