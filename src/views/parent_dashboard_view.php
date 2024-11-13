@@ -40,23 +40,15 @@
 
 <div class="overlay"></div>
 
-<!--
+
 <div id="splashScreen">
     <div id="logo">
         <img src="./src/views/textLogo.png" alt="M_thBright" title="MathBright Logo" class="text-logo">
         <img src="./src/views/logoA.png" alt="∂" title="∂ Logo" class="partial-derivative-logo"> 
     </div>
 </div>
--->
 
-<!--
-<div id="loginSection">
-    <div id="login-screen2"></div>
 
-    <div class="signup_login_screens" id="signup_login_screens"></div>
-
-</div>
--->
 
 <!-- Main App Content -->
 <div id="appSection">
@@ -65,12 +57,15 @@
 
         <!-- HOME Screen -->
         <div id="home_screen">        
-
+            home_screen  - DEFAULT CONTENT
+            </br>- show stats of kids
+            </br>-- lesson completion data (qty and time completed)
+            </br>-- similar to emails that are sent
         </div>
 
         <!-- Activities Screen -->
         <div id="activities_screen">        
-            activities_screen
+            activities_screen  - DEFAULT CONTENT
         </div>
 
         <!-- rewards Screen -->
@@ -78,16 +73,23 @@
             <div id="bonus-rewards" class="tab-content">
                 <!-- Bonus rewards content goes here -->
             </div>
+            rewards_screen - DEFAULT CONTENT
+            </br>-let parent's view Parent rewards
+            </br>-let Parent's update the Parent Rewards'
         </div>
 
         <!-- Shop Screen -->
         <div id="shop_screen">        
-            shop screen
+            shop screen  - DEFAULT CONTENT
         </div>
 
-        <!-- Profile Screen -->
-        <div id="profile_screen">        
-            profile_screen
+        <!-- Account Screen -->
+        <div id="account_screen">        
+            account_screen  - DEFAULT CONTENT
+            </br>- see subscription info
+            </br>- logout button
+            </br>- get help link (FAQ, Blog, Contact Us)
+            </br>- cancel subscription (send email)
         </div>
 
     </div>
@@ -96,10 +98,10 @@
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
         <button class="nav-button" data-icon="home"><i class="fas fa-home"></i><br><span>Home</span></button>
-        <button class="nav-button" data-icon="activities"><i class="fas fa-tasks"></i><br><span>Activities</span></button>
-        <button class="nav-button" data-icon="rewards"><i class="fas fa-gem"></i><br><span>rewards</span></button>
-        <button class="nav-button" data-icon="shop"><i class="fas fa-store"></i><br><span>Shop</span></button>
-        <button class="nav-button" data-icon="profile"><i class="fas fa-user"></i><br><span>Profile</span></button>
+        <!-- <button class="nav-button" data-icon="activities"><i class="fas fa-tasks"></i><br><span>Activities</span></button> -->
+        <button class="nav-button" data-icon="rewards"><i class="fas fa-gem"></i><br><span>Rewards</span></button>
+        <!-- <button class="nav-button" data-icon="shop"><i class="fas fa-store"></i><br><span>Shop</span></button> -->
+        <button class="nav-button" data-icon="account"><i class="fas fa-user"></i><br><span>Account</span></button>
     </div>
 
 </div>

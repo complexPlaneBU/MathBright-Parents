@@ -1,5 +1,7 @@
 ﻿let DEBUG_DATA = 1;
 
+renderRewardsScreenHTML
+
 // Create a <link> element
 const link = document.createElement('link');
 
@@ -13,7 +15,9 @@ document.head.appendChild(link);
 /*
 import { getUserAvatarUrl } from './utils.js';
 */
-import { renderrLoginHTML } from './screens/login.js';
+import { renderHomeScreenHTML } from './screens/home.js';
+import { renderRewardsScreenHTML } from './screens/rewards.js';
+import { renderAccountScreenHTML } from './screens/account.js';
 import { AuthStateMachine } from './screens/signup.js';
 import { renderSignupHTML } from './screens/signup.js';
 import appState from './state.js';
@@ -24,14 +28,56 @@ document.addEventListener('DOMContentLoaded', async function () {
 })
 
 
+
+async function updateApp() {
+    try {
+
+        /* // Need to update for Parent Specific Dashbaord
+
+        // Check login status
+        const ret = await isAnyoneLoggedIn();
+
+        if (ret.loggedIn) {
+            const username = ret.userData.username;
+            console.log(ret.userData.username);
+            // Load user-specific data if user is logged in (private)
+            // Load bonus rewards available data for user (private)
+            // Load custom parent rewards for user (private)
+            await getRewardsInfoForUser(username);
+
+            // get XP and other stats for specific user; they may not be on the leaderboard so need to always pull
+            appState.gLoggedInUserStats = await fetchUserStats(username);
+        }
+
+
+        // Render screens
+        await renderHomeScreen();
+        await renderRewardsScreen();
+        //updateLeaderboard();
+        await updateLeaderboardAfterSearch();
+        initializeLoginModalEventListeners();
+
+
+        // Load sections of the screens that show private data for logged in users
+        if (ret.loggedIn) {
+            await updateRewardsDashboard();
+            await displayPrivateRewardsSection();
+        }
+        */
+      
+
+    } catch (error) {
+        console.error('Error Updating App:', error);
+    }
+}
+
+
 async function initializeApp() {
 
-    const appSection = document.getElementById('appSection');
-
-    /*
     const logoA = document.querySelector('.partial-derivative-logo');
     const textLogo = document.querySelector('.text-logo');
     const splashScreen = document.getElementById('splashScreen');
+    const appSection = document.getElementById('appSection');    
 
     // Start bounce-in animation immediately
     logoA.style.animation = 'bounceIn 3s ease-out forwards';
@@ -42,52 +88,92 @@ async function initializeApp() {
 
     try {
         await updateApp();
+        addEventListeners();
     } catch (error) {
         console.error('Error Initializing App:', error);
     } finally {
         // Stop animations when data loading completes
+        renderHomeScreenHTML();
+        renderRewardsScreenHTML();
+        renderAccountScreenHTML();
         textLogo.style.animation = 'none';
         splashScreen.style.display = 'none';
-        //appSection.style.display = 'block';
-        appSection.style.display = 'none';
+        appSection.style.display = 'block';
+
     }
-    */
-
-    //renderrLoginHTML();
-    //renderSignupHTML();
-
-
-    //const authStateMachine = new AuthStateMachine('login');
-
-    appSection.style.display = 'block';
-
-    renderParentsDashboardViewHTML();
-
 }
  
 
 
-
-
-export async function renderParentsDashboardViewHTML() {
-    try {
-        const html = `
-            <div>
-                Rendering renderParentsDashboardViewHTML
-            </div>
-
-        `;
-        const screenContainer = document.getElementById('home_screen');
-        screenContainer.innerHTML = html;
-
-        return Promise.resolve();
-    } catch (error) {
-        console.error('Error rendering parents_dashboard_view HTML:', error);
-        return Promise.reject(error);
-    }
-
-
+function addEventListeners() {
+    document.querySelectorAll('.bottom-nav button').forEach(button => {
+        button.addEventListener('click', handleMenuIconClick);
+    });
 }
+
+
+
+
+function handleMenuIconClick(event) {
+    const iconName = event.currentTarget.dataset.icon;
+    const screenDiv = document.getElementById('screens');
+
+    document.querySelectorAll(".user-profile").forEach(function (el) {
+        el.style.display = "none";
+    });
+
+    switch (iconName) {
+        case 'home':
+            console.log("in home case statement");
+            screenDiv.children[0].style.display = 'block'; // Show home screen
+            for (let i = 1; i < screenDiv.children.length; i++) {
+                screenDiv.children[i].style.display = 'none'; // Hide other screens
+            }
+            break;
+        case 'activities':
+            console.log("in activities case statement");
+            screenDiv.children[1].style.display = 'block'; // Show activities screen
+            for (let i = 0; i < screenDiv.children.length; i++) {
+                if (i !== 1) {
+                    screenDiv.children[i].style.display = 'none'; // Hide other screens
+                }
+            }
+            break;
+        case 'rewards':
+            document.querySelectorAll(".user-profile").forEach(function (el) {
+                el.style.display = "none";
+            });
+            console.log("in rewards case statement");
+            screenDiv.children[2].style.display = 'block'; // Show rewards screen
+            for (let i = 0; i < screenDiv.children.length; i++) {
+                if (i !== 2) {
+                    screenDiv.children[i].style.display = 'none'; // Hide other screens
+                }
+            }
+            break;
+        case 'shop':
+            console.log("in shop case statement");
+            screenDiv.children[3].style.display = 'block'; // Show shop screen
+            for (let i = 0; i < screenDiv.children.length; i++) {
+                if (i !== 3) {
+                    screenDiv.children[i].style.display = 'none'; // Hide other screens
+                }
+            }
+            break;
+        case 'account':
+            console.log("in account case statement");
+            screenDiv.children[4].style.display = 'block'; // Show account screen
+            for (let i = 0; i < screenDiv.children.length; i++) {
+                if (i !== 4) {
+                    screenDiv.children[i].style.display = 'none'; // Hide other screens
+                }
+            }
+            break;
+        default:
+            console.warn('Unknown icon name:', iconName);
+    }
+}
+
 
 async function isAuthenticated(username, password) {
     try {

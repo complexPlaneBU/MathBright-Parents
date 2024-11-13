@@ -4,7 +4,7 @@ const link = document.createElement('link');
 
 // Set the attributes for the link element
 link.rel = 'stylesheet';
-link.href = 'src/views/screens/home.css'; // Path to your CSS file
+link.href = 'src/views/screens/account.css'; // Path to your CSS file
 
 // Append the link to the document's <head> section
 document.head.appendChild(link);
@@ -30,25 +30,26 @@ function addEventListeners() {
     //});
 }
 
-export async function renderHomeScreenHTML() {
+export async function renderAccountScreenHTML() {
     try {
         const html = `
             <div>
-                Rendering renderHomeScreen HTML
+                Rendering renderAccountScreenHTML HTML
 
-                home_screen3
-                </br>- show stats of kids
-                </br>-- lesson completion data (qty and time completed)
-                </br>-- similar to emails that are sent
+                account_screen 
+                </br>- see subscription info
+                </br>- logout button
+                </br>- get help link (FAQ, Blog, Contact Us)
+                </br>- cancel subscription (send email)
                 2
             </div>
         `;
-        const screenContainer = document.getElementById('home_screen');
+        const screenContainer = document.getElementById('account_screen');
         screenContainer.innerHTML = html;
 
         return Promise.resolve();
     } catch (error) {
-        console.error('Error rendering renderHomeScreen HTML:', error);
+        console.error('Error rendering renderAccountScreenHTML HTML:', error);
         return Promise.reject(error);
     }
 }

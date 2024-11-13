@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 async function initializeApp() {
 
     renderSignupHTML();
-
+    //renderrLoginHTML();
+    //renderSignupHTML();
     const authStateMachine = new AuthStateMachine('signup');
 
 }
