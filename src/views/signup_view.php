@@ -14,7 +14,6 @@
 
 <div>
     <?php 
-        echo '  otpData = ' . $otpData ;
         echo '  state = ' . $state ;
      ?>
 </div>
@@ -24,7 +23,7 @@
 
 <div> Signup View </div>
 
-<div id="loginSection">
+<div id="loginSection" data-state="<?= $state ?>">
 
     <div class="signup_login_screens" id="signup_login_screens"></div>
 

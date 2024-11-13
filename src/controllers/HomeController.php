@@ -1,9 +1,14 @@
 <?php
+// Debug switch only for development.  set to 'false' for production.
+
 require_once 'BaseController.php';
 
 class HomeController extends BaseController {
+    private $simulate_logged_in_user = false;
+
     public function __construct() {
         parent::__construct('parent_dashboard_view');
+
     }
 
     public function indexAction() {
@@ -37,10 +42,12 @@ class HomeController extends BaseController {
                 ]); 
             }
 
-            // debug
-            $isAuthenticated['loggedIn'] = true;
-            $isAuthenticated['userData']['username'] = true;
-            $isAuthenticated['userData']['user_id'] = true;
+            // for development testing
+            if ($this->simulate_logged_in_user) {
+                $isAuthenticated['loggedIn'] = true;
+                $isAuthenticated['userData']['username'] = true;
+                $isAuthenticated['userData']['user_id'] = true;
+            }
 
             if ($isAuthenticated && isset($isAuthenticated['loggedIn']) && $isAuthenticated['loggedIn']) { // logged in
                 $viewModel->loggedIn = true;
