@@ -37,17 +37,24 @@ class HomeController extends BaseController {
                 ]); 
             }
 
-            if ($isAuthenticated && isset($isAuthenticated['loggedIn']) && $isAuthenticated['loggedIn']) {
+            // debug
+            $isAuthenticated['loggedIn'] = true;
+            $isAuthenticated['userData']['username'] = true;
+            $isAuthenticated['userData']['user_id'] = true;
+
+            if ($isAuthenticated && isset($isAuthenticated['loggedIn']) && $isAuthenticated['loggedIn']) { // logged in
                 $viewModel->loggedIn = true;
                 $viewModel->username = $isAuthenticated['userData']['username'];
                 $viewModel->user_id = $isAuthenticated['userData']['user_id'];
                 $data = ['error' => 'Default index action executed. No specific action requested.'];
-            } else {
+                $this->loadView('parent_dashboard_view', $viewModel);
+            } else { // not logged in
                 $viewModel->loggedIn = false;
                 $data = ['error' => 'Default index action executed. No specific action requested.'];
+                $viewModel->state = "login";
+                $this->loadView('signup_view', $viewModel);
             }
 
-            $this->loadView('parent_dashboard_view', $viewModel);
         }
     }
 
@@ -69,7 +76,7 @@ class HomeController extends BaseController {
                 'debug' => $otp
             ]); 
 
-            $viewModel->state = "otpVerify";
+            $viewModel->state = "login";
             $viewModel->otpData = $otp;
 
             $this->loadView('signup_view', $viewModel);

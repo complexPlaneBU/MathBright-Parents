@@ -22,6 +22,8 @@
 </head>
 <body>
     
+<div> Parent's Dashboard View </div>
+
 
  <?php
      function a($string) {
@@ -38,23 +40,23 @@
 
 <div class="overlay"></div>
 
+<!--
 <div id="splashScreen">
     <div id="logo">
         <img src="./src/views/textLogo.png" alt="M_thBright" title="MathBright Logo" class="text-logo">
         <img src="./src/views/logoA.png" alt="∂" title="∂ Logo" class="partial-derivative-logo"> 
     </div>
 </div>
+-->
 
-
+<!--
 <div id="loginSection">
-    <!--  Login Screen -->
     <div id="login-screen2"></div>
 
-    <!--  Signup Screen -->
     <div class="signup_login_screens" id="signup_login_screens"></div>
 
 </div>
-
+-->
 
 <!-- Main App Content -->
 <div id="appSection">
