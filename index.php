@@ -13,6 +13,10 @@ if (file_exists('src/config.php')) {
     echo "<br>Error: Configuration file, 'src/config.php', not found!";
 }
 
+// Get URL parameters (excluding controller and action)
+$params = $_GET;
+unset($params['controller']);
+unset($params['action']);
 
 
 //-=========================================
@@ -48,8 +52,12 @@ if (file_exists($controllerFile)) {
 
         // Check if the action exists in the controller
         if (method_exists($controller, $methodName)) {
-            // Call the action
-            $ret = $controller->{$methodName}();
+            // If no params are passed, $params will be an empty array
+            $params = isset($params) ? array_values($params) : [];
+
+            // Call the method, pass parameters if they exist
+            $ret = $controller->{$methodName}(...$params);
+
             // Output the result
             echo $ret;
         } else {

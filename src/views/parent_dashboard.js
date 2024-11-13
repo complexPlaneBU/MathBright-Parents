@@ -118,7 +118,7 @@ async function initializeApp() {
     renderSignupHTML();
 
 
-    const authStateMachine = new AuthStateMachine();
+    const authStateMachine = new AuthStateMachine('login');
 
     // Get the login and signup screens
     const loginScreen = document.getElementById('login-screen');

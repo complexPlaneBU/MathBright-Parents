@@ -52,6 +52,30 @@ class HomeController extends BaseController {
     }
 
 
+
+    // OTP Verify action (with an optional parameter)
+    public function otpverifyAction($otp = null) {
+            $viewModel = new stdClass();
+
+        // Handle the case where OTP is missing
+        if ($otp === null) {
+            echo "No OTP provided.";
+        } else {
+            echo "OTP received: $otp";
+
+            echo json_encode([
+                'success' => true,
+                'data' => 'in HomeController',
+                'debug' => $otp
+            ]); 
+
+            $viewModel->state = "otpVerify";
+            $viewModel->otpData = $otp;
+
+            $this->loadView('signup_view', $viewModel);
+        }
+    }
+
     public function routeAction($confirm, $id, $token) {
         // Validate and sanitize inputs
         $confirm = htmlspecialchars($confirm, ENT_QUOTES, 'UTF-8');

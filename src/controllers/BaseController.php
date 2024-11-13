@@ -16,15 +16,6 @@ abstract class BaseController {
         return new $model($db);
     }
 
-    protected function loadView_orig($view, $data = []) {
-        $viewFile = './src/views/' . $view . '.php';
-        if (file_exists($viewFile)) {
-            extract($data);
-            require $viewFile;
-        } else {
-            echo "View not found: $viewFile";
-        }
-    }
 
     protected function loadView($view, $data) {
         $viewFile = './src/views/' . $view . '.php';

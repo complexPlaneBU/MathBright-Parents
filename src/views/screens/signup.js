@@ -107,8 +107,8 @@ export async function renderSignupHTML() {
 }
 
 export class AuthStateMachine {
-    constructor() {
-        this.state = 'login';  // Initial state is 'login'
+    constructor(initialState = 'login') {
+        this.state = initialState;  
         this.email = '';
         this.password = '';
         this.otp = '';

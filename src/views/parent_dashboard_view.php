@@ -33,6 +33,7 @@
     <?php if ($verbose == 123) { 
         echo $username . ' with userid = ' . $user_id . ' logged in = ' . $loggedIn;
     } ?>
+
 </div>
 
 <div class="overlay"></div>
