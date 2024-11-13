@@ -1,6 +1,7 @@
 <?php
 
-define('DEFAULT_CONTROLLER', 'HomeController');
+//define('DEFAULT_CONTROLLER', 'HomeController');
+define('DEFAULT_CONTROLLER', 'Home');
 define('DEFAULT_ACTION', 'index');
 define('DEFAULT_METHOD', 'indexAction');
 
@@ -21,6 +22,8 @@ if (file_exists('src/config.php')) {
 $controllerName = filter_input(INPUT_GET, 'controller', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? DEFAULT_CONTROLLER;
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? DEFAULT_ACTION;
 
+$controllerName = $controllerName . 'Controller';
+
 // Also check the request body for controller and action
 $requestBody = json_decode(file_get_contents('php://input'), true);
 if ($requestBody) {
@@ -29,6 +32,7 @@ if ($requestBody) {
 }
 
 // Include the controller class file
+//$controllerFile = './src/controllers/' . $controllerName . '.php';
 $controllerFile = './src/controllers/' . $controllerName . '.php';
 
 
