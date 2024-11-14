@@ -331,7 +331,7 @@ export class AuthStateMachine {
             });
 
         // Send OTP via email
-        //sendOTPEmail(this.email, this.otp);
+        sendOTPEmail(this.email, this.otp);
 
 
     }
@@ -524,6 +524,42 @@ async function storeEmailAddressandOTP(email, otp) {
     }
 
 
+    async function sendOTPEmail(email, otp) {
+        try {
+            const url = 'https://api.mathbright.co/contact/sendOTPEmail';
+            const postData = {
+                controller: 'contact',
+                action: 'sendOTPEmail',
+                email: email,
+                otp: otp
+            };
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'  // Set the content type to application/json
+                },
+                body: JSON.stringify(postData)  // Send the postData as a JSON string
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log('OTP sent successfully:', data);
+                return data;
+            } else {
+                console.log('Error sending OTP:', data.error);
+                return data;
+            }
+        } catch (error) {
+            console.error('Error sending OTP:', error.message, error.stack);
+            throw error;
+        }
+    }
+
+
+
+
     async function verifyOTP(email, otp) {
         try {
             const url = 'index.php';
@@ -555,6 +591,7 @@ async function storeEmailAddressandOTP(email, otp) {
             return { success: false, error: error.message };
         }
     }
+
 
 
 export async function renderSignupHTML_old() {
