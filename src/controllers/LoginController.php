@@ -16,7 +16,6 @@ class LoginController extends BaseController {
     }
 
     
-
     public function saveEmailAction() {
         // Get the email from the POST request (assuming it's sent as JSON)
         $postData = json_decode(file_get_contents('php://input'), true);
@@ -28,7 +27,6 @@ class LoginController extends BaseController {
                 return;
             }
         }
-
 
         // Get the email from the POST data
         $email = $postData['email'];
@@ -43,8 +41,8 @@ class LoginController extends BaseController {
             // Return a success response
             echo json_encode(['success' => true, 'message' => 'Email saved successfully']);
         } else {
-            // Return an error response
-            echo json_encode(['success' => false, 'error' => 'Failed to save email']);
+            // Return the error from the model
+            echo json_encode(['success' => false, 'error' => $response['error'] ?? 'Failed to save email']);
         }
     }
 

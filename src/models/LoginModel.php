@@ -30,26 +30,29 @@ class LoginModel {
         }
 
         // Insert the email, OTP, and expiration time into the signup_temp table
-        $query = "INSERT INTO signup_temp (email, otp, otp_expiration_time) VALUES (:email, :otp, :expirationTime)";
+        $query = "INSERT INTO signup_temp (email, otp, otp_expiration_time) 
+                  VALUES (:email, :otp, :expirationTime) 
+                  ON DUPLICATE KEY UPDATE email=email";
         try {
             // Get the database connection (assuming a PDO instance is available via $this->db)
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->bindParam(':otp', $otp, PDO::PARAM_STR);
             $stmt->bindParam(':expirationTime', $expirationTime, PDO::PARAM_STR);
-    
+        
             // Execute the query
-            if ($stmt->execute()) {
-                // Return success, you can also return the ID of the inserted row
-                return ['success' => true];
+            $stmt->execute();
+
+            // Check affected rows
+            if ($stmt->rowCount() === 0) {
+                return ['success' => false, 'error' => 'Email already exists'];
             } else {
-                // If query execution fails
-                return ['success' => false];
+                return ['success' => true];
             }
         } catch (PDOException $e) {
             // Log error and return failure
             error_log('Database error: ' . $e->getMessage());
-            return ['success' => false];
+            return ['success' => false, 'error' => 'Database error'];
         }
     }
 
