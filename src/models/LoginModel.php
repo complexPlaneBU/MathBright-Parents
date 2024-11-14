@@ -15,7 +15,7 @@ class LoginModel {
     }
 
     
-    public function saveEmail($email) {
+    public function saveEmail($email, $otp) {
         // Ensure the session is started if it's not already
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -26,12 +26,13 @@ class LoginModel {
             return null;  // Invalid email, return null (you might want to handle this differently)
         }
 
-        // Insert the email into the signup_temp table
-        $query = "INSERT INTO signup_temp (email) VALUES (:email)";
+        // Insert the email and OTP into the signup_temp table
+        $query = "INSERT INTO signup_temp (email, otp) VALUES (:email, :otp)";
         try {
             // Get the database connection (assuming a PDO instance is available via $this->db)
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':otp', $otp, PDO::PARAM_STR);
         
             // Execute the query
             if ($stmt->execute()) {

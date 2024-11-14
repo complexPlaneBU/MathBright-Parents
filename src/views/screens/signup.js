@@ -322,7 +322,7 @@ export class AuthStateMachine {
             });
 
         // Send OTP via email
-        sendOTPEmail(this.email, this.otp);
+        //sendOTPEmail(this.email, this.otp);
 
 
     }
@@ -481,7 +481,8 @@ async function storeEmailAddressandOTP(email, otp) {
             const postData = {
                 controller: 'LoginController',
                 action: 'saveEmail',
-                email: email
+                email: email,
+                otp: otp  
             };
 
             const response = await fetch(url, {
