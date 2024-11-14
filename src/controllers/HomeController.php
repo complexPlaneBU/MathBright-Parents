@@ -94,6 +94,30 @@ class HomeController extends BaseController {
     }
     
 
+    public function verifyEmailAction($token = 'none') {
+        $viewModel = new stdClass();
+        
+        $viewModel->token = $token;
+
+        if ($token === null) {
+            $response = [
+                'success' => false,
+                'data' => 'in HomeController: Signup Action',
+                'debug' => "No state provided."
+            ];
+            echo json_encode($response);
+        } else {
+            $response = [
+                'success' => true,
+                'data' => 'in HomeController: Signup Action',
+                'token' => $token
+            ];
+            echo json_encode($response);
+        }
+
+        $this->loadView('verifyEmail_view', $viewModel);
+    }
+
 
     public function routeAction($confirm, $id, $token) {
         // Validate and sanitize inputs
