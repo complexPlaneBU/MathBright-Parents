@@ -55,22 +55,35 @@ export async function renderSignupHTML() {
 
 
             <div id="signup-screen" class="screen hidden">
-                <h1>Signup</h1>
-                <form id="signup-form">
-                    <label for="signup-email">Email:</label> <!-- Changed id to avoid conflict -->
-                    <input type="email" id="signup-email" required />
-                    <button type="submit">Submit</button>
-                    <a href="#" id="login-link">Already have an account? Login</a>
-                </form>
-                <div class="signup-error"></div>
+                <div class="signup-container">
+                    <h3 class="signup-headline">Let's get started</h3>
 
+                    <form id="signup-form">
+                        <!-- Email Field -->
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" name="signup-email" required placeholder="Enter your email">
+                        </div>
 
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn">Sign Up</button>
 
+                        <!-- Login Link -->
+                        <div class="link-container">
+                            <p>Already have an account?</p>
+                            <p><a href="#" id="login-link">Login now</a></p>
+                        </div>
+                    </form>
+
+                    <div class="signup-error"></div>
+                </div>
             </div>
 
 
+
             <div id="otp-screen" class="screen hidden">
-                <h1>Enter OTP</h1>
+                <h1>Verify your email address</h1>
+                <h3>Type in the verification code we sent to your email</h3>
                 <form id="otp-form">
                     <input type="text" id="otp" required />
                     <button type="submit">Verify OTP</button>
@@ -78,6 +91,7 @@ export async function renderSignupHTML() {
                 <button class="back-button">Back</button>
                 <div class="otp-error"></div>
             </div>
+
 
             <div id="user-info-screen" class="screen hidden">
                 <h1>Enter Your Info</h1>
@@ -141,6 +155,36 @@ export async function renderSignupHTML() {
     }
 
 
+}
+
+function renderHeader() {
+    const html = `
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand"><a href="#">M<span style="color:#71AFFF">∂</span>thBright</a></div>
+            <div class="navbar-menu">
+                <ul class="navbar-links">
+                    <li><a href="?page=howitworks">How It Works</a></li>
+                    <li><a href="https://app-dev.mathbright.co">Get Started</a></li>
+                    <li><a href="https://app-dev.mathbright.co">View Leaderboard</a></li>
+                    <li><a href="https://app-dev.mathbright.co">Claim Rewards</a></li>
+                    <li><a href="#">Parent's Sign in</a></li>
+                </ul>
+                <div class="button-group">
+                    <button class="view-dashboard" disabled="">View Dashboard</button>
+                    <button class="start-now ">Start Now</button>
+                </div>
+                <div id="hamburger-menu" class="hamburger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+     `;
+        const screenContainer = document.getElementById('signup_login_screens');
+        screenContainer.innerHTML = html;
 }
 
 export class AuthStateMachine {
@@ -219,6 +263,8 @@ export class AuthStateMachine {
             });
         }
 
+        console.log("num = " + generateOTP(6)); // 6-digit OTP
+
         this.updateUI();
     }
 
@@ -256,8 +302,11 @@ export class AuthStateMachine {
             return;
         }
 
+        this.otp = generateOTP(6);
+        console.log("OTP = " + this.otp); // 6-digit OTP
+
         // Proceed with sending email to the server
-        storeEmailAddress(this.email)
+        storeEmailAddressandOTP(this.email, this.otp)
             .then(data => {
                 if (data.success) {
                     // Transition to OTP screen
@@ -271,6 +320,11 @@ export class AuthStateMachine {
                 console.error('Error:', error);
                 document.querySelector('.signup-error').textContent = 'There was a problem processing your request. Please try again later.';
             });
+
+        // Send OTP via email
+        sendOTPEmail(this.email, this.otp);
+
+
     }
 
 
@@ -413,7 +467,15 @@ export class AuthStateMachine {
 
 }
 
-    async function storeEmailAddress(email) {
+function generateOTP(length) {
+    const array = new Uint32Array(length);
+    window.crypto.getRandomValues(array);
+    return Array.from(array, (num) => num % 10).join('').padStart(length, '0');
+}
+
+console.log(generateOTP(6)); // 6-digit OTP
+
+async function storeEmailAddressandOTP(email, otp) {
         try {
             const url = 'index.php';
             const postData = {

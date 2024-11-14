@@ -41,6 +41,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 600px;
 }
 
 .login-logo {
@@ -53,7 +54,7 @@
 .screen {
     display: none; /* Hide the screen by default */
     width: 100%;
-    padding: 20px; /* Add padding to the screen for content */
+    padding: 60px; /* Add padding to the screen for content */
     box-sizing: border-box; /* Include padding and borders in the element's total width and height */
     overflow: hidden; /* Prevent overflow in case of large content */
     background-color: #fff; /* Set background to white or whatever color fits your design */
@@ -90,7 +91,8 @@
 }
 
 .signup-headline {
-    font-size: 1.4rem;
+    font-size: 1rem;
+    margin-bottom: 20px;
 }
 
 .signup-screen {
@@ -102,6 +104,7 @@
     font-size: 2.4rem;
     box-sizing: border-box; /* Include padding and border in element's total width and height */
     color: #000;
+    margin-bottom: 20px;
 }
 
     .signup-logo a {
@@ -188,6 +191,101 @@ p {
     font-size: 14px;
 }
 
+
+/*** HEADER ***/
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #FFFFFF; /* White background for navbar */
+    color: #2b0f4c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 1000;
+    height: var(--navbar-height);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow to ensure visibility */
+    box-sizing: border-box; /* Ensure padding is included in total width/height */
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+    .navbar-brand > a {
+        text-decoration: none !important;
+        cursor: pointer !important;
+        color: black;
+    }
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 1rem;
+    box-sizing: border-box; /* Ensure padding is included in total width/height */
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+}
+
+    .navbar-links li {
+        margin-left: 20px;
+        padding: 0px 0 10px 10px;
+    }
+
+    .navbar-links a {
+        color: #2b0f4c;
+        text-decoration: none;
+        font-size: 1em;
+    }
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none; /* Hide menu links on mobile */
+        position: absolute;
+        top: var(--navbar-height);
+        right: 0;
+        background: #FFFFFF;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+        max-height: 0; /* Start with height of 0 */
+        overflow: hidden; /* Hide overflow when collapsed */
+        padding-bottom: 10px;
+    }
+
+        .navbar-links.active {
+            display: flex;
+            flex-direction: column;
+            max-height: 300px; /* Adjust height as needed */
+        }
+
+    .button-group {
+        display: none; /* Hide buttons on mobile */
+    }
+
+    .hamburger-menu {
+        display: flex; /* Show hamburger menu on mobile */
+    }
+
+    .navbar-menu {
+        justify-content: flex-end; /* Move hamburger menu to the right */
+    }
+}
 
 
 
