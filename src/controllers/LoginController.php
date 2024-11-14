@@ -15,36 +15,6 @@ class LoginController extends BaseController {
         return "Hello World from LoginController!";
     }
 
-    
-    public function saveEmailAction() {
-        // Get the email from the POST request (assuming it's sent as JSON)
-        $postData = json_decode(file_get_contents('php://input'), true);
-
-        $requiredFields = ['email', 'otp'];
-        foreach ($requiredFields as $field) {
-            if (empty($postData[$field])) {
-                echo json_encode(['success' => false, 'error' => ucfirst($field) . ' is required']);
-                return;
-            }
-        }
-
-        // Get the email from the POST data
-        $email = $postData['email'];
-        $opt = $postData['otp'];
-
-        // Call the model's saveEmail method to store the email in the database
-        $model = $this->model('LoginModel');
-        $response = $model->saveEmail($email, $opt);
-
-        // Check if the response from the model is successful
-        if ($response && isset($response['success']) && $response['success'] === true) {
-            // Return a success response
-            echo json_encode(['success' => true, 'message' => 'Email saved successfully']);
-        } else {
-            // Return the error from the model
-            echo json_encode(['success' => false, 'error' => $response['error'] ?? 'Failed to save email']);
-        }
-    }
 
 
     public function verifyOTPAction() {

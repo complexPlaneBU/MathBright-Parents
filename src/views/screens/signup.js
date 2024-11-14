@@ -491,12 +491,11 @@ function generateOTP(length) {
 
 console.log(generateOTP(6)); // 6-digit OTP
 
-async function storeEmailAddressandOTP(email, otp) {
+    async function storeEmailAddressandOTP(email, otp) {
         try {
-            const url = 'index.php';
+            //const url = 'index.php';
+            const url = 'https://api.mathbright.co/signup/storeEmailAddressandOTP';
             const postData = {
-                controller: 'LoginController',
-                action: 'saveEmail',
                 email: email,
                 otp: otp  
             };
@@ -524,12 +523,13 @@ async function storeEmailAddressandOTP(email, otp) {
     }
 
 
+
     async function sendOTPEmail(email, otp) {
         try {
-            const url = 'https://api.mathbright.co/contact/sendOTPEmail';
+            const url = 'https://api.mathbright.co/signup/sendOTPEmail';
             const postData = {
-                controller: 'contact',
-                action: 'sendOTPEmail',
+                //controller: 'contact',
+                //action: 'sendOTPEmail',
                 email: email,
                 otp: otp
             };
@@ -562,10 +562,9 @@ async function storeEmailAddressandOTP(email, otp) {
 
     async function verifyOTP(email, otp) {
         try {
-            const url = 'index.php';
+            //const url = 'index.php';
+            const url = 'https://api.mathbright.co/signup/verifyOTP';
             const postData = {
-                controller: 'LoginController',
-                action: 'verifyOTP',
                 email: email,
                 otp: otp
             };
