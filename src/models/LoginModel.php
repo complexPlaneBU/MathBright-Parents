@@ -21,19 +21,23 @@ class LoginModel {
             session_start();
         }
 
+        $expirationTime = date('Y-m-d H:i:s', time() + 300); // 5 minutes
+
+
         // Make sure we have a valid email
         if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return null;  // Invalid email, return null (you might want to handle this differently)
         }
 
-        // Insert the email and OTP into the signup_temp table
-        $query = "INSERT INTO signup_temp (email, otp) VALUES (:email, :otp)";
+        // Insert the email, OTP, and expiration time into the signup_temp table
+        $query = "INSERT INTO signup_temp (email, otp, otp_expiration_time) VALUES (:email, :otp, :expirationTime)";
         try {
             // Get the database connection (assuming a PDO instance is available via $this->db)
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->bindParam(':otp', $otp, PDO::PARAM_STR);
-        
+            $stmt->bindParam(':expirationTime', $expirationTime, PDO::PARAM_STR);
+    
             // Execute the query
             if ($stmt->execute()) {
                 // Return success, you can also return the ID of the inserted row
@@ -41,6 +45,49 @@ class LoginModel {
             } else {
                 // If query execution fails
                 return ['success' => false];
+            }
+        } catch (PDOException $e) {
+            // Log error and return failure
+            error_log('Database error: ' . $e->getMessage());
+            return ['success' => false];
+        }
+    }
+
+
+
+    public function verifyOTP($email, $otp) {
+        // Make sure we have a valid email
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return null;  // Invalid email, return null
+        }
+
+        // Query to retrieve OTP and expiration time from database
+        $query = "SELECT otp, otp_expiration_time FROM signup_temp WHERE email = :email";
+        try {
+            // Prepare query
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        
+            // Execute query
+            $stmt->execute();
+        
+            // Fetch result
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+            // Check if OTP exists and matches
+            if ($result && $result['otp'] === $otp) {
+                // Check expiration time
+                $expirationTime = strtotime($result['otp_expiration_time']);
+                if ($expirationTime > time()) {
+                    // OTP is valid and not expired
+                    return ['success' => true];
+                } else {
+                    // OTP has expired
+                    return ['success' => false, 'error' => 'OTP has expired'];
+                }
+            } else {
+                // Invalid OTP
+                return ['success' => false, 'error' => 'Invalid OTP'];
             }
         } catch (PDOException $e) {
             // Log error and return failure

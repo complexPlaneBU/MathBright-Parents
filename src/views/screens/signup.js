@@ -80,16 +80,25 @@ export async function renderSignupHTML() {
             </div>
 
 
-
+            <!-- OTP SCREEN -->
             <div id="otp-screen" class="screen hidden">
                 <h1>Verify your email address</h1>
-                <h3>Type in the verification code we sent to your email</h3>
+                <p>Verification code sent to <strong>{{ email }}</strong></p>
+                <h3>Type in the verification code</h3>
                 <form id="otp-form">
-                    <input type="text" id="otp" required />
-                    <button type="submit">Verify OTP</button>
+                    <input
+                        type="password"
+                        id="otp"
+                        required
+                        maxlength="6"
+                        pattern="[0-9]{6}"
+                        title="6-digit OTP"
+                    />
+                    <button type="submit" class="btn">Verify</button>
                 </form>
                 <button class="back-button">Back</button>
                 <div class="otp-error"></div>
+                <p>If you did not receive the code, <a href="#">resend it</a>.</p>
             </div>
 
 
@@ -332,16 +341,23 @@ export class AuthStateMachine {
     // Verify OTP form submission
     verifyOtp(event) {
         event.preventDefault();
-        this.otp = document.getElementById('otp').value;
+        //const email = document.querySelector('#otp-screen strong').textContent; // Get email from verification screen
+        const email = this.email;
+        const otp = document.getElementById('otp').value;
 
-        // Simulate OTP verification
-        if (this.otp === '123456') {
-            this.state = 'userInfo';  // Transition to user info (name and password)
-            this.updateUI();
-        } else {
-            alert('Invalid OTP');
-        }
+        verifyOTP(email, otp).then((response) => {
+            if (response.success) {
+                this.state = 'userInfo';  // Transition to user info (name and password)
+                this.updateUI();
+            } else {
+                alert(response.error || 'Invalid OTP');
+                document.querySelector('.otp-error').innerText = response.error;
+            }
+        }).catch((error) => {
+            document.querySelector('.otp-error').innerText = error.error;
+        });
     }
+
 
     // Handle user info (name and password) form submission
     handleUserInfo(event) {
@@ -506,6 +522,40 @@ async function storeEmailAddressandOTP(email, otp) {
             return { success: false, error: error.message };
         }
     }
+
+
+    async function verifyOTP(email, otp) {
+        try {
+            const url = 'index.php';
+            const postData = {
+                controller: 'LoginController',
+                action: 'verifyOTP',
+                email: email,
+                otp: otp
+            };
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                return data;  // Return data on success
+            } else {
+                throw new Error(data.error || 'Error verifying OTP.');
+            }
+        } catch (error) {
+            // Return a failure response for error handling in the frontend
+            console.error('Error verifying OTP:', error.message);
+            return { success: false, error: error.message };
+        }
+    }
+
 
 export async function renderSignupHTML_old() {
     try {

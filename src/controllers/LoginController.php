@@ -49,6 +49,37 @@ class LoginController extends BaseController {
     }
 
 
+    public function verifyOTPAction() {
+        // Get the email and OTP from the POST request (assuming it's sent as JSON)
+        $postData = json_decode(file_get_contents('php://input'), true);
+
+        $requiredFields = ['email', 'otp'];
+        foreach ($requiredFields as $field) {
+            if (empty($postData[$field])) {
+                echo json_encode(['success' => false, 'error' => ucfirst($field) . ' is required']);
+                return;
+            }
+        }
+
+        // Get the email and OTP from the POST data
+        $email = $postData['email'];
+        $otp = $postData['otp'];
+
+        // Call the model's verifyOTP method to verify the OTP
+        $model = $this->model('LoginModel');
+        $response = $model->verifyOTP($email, $otp);
+
+        // Check if the response from the model is successful
+        if ($response && isset($response['success']) && $response['success'] === true) {
+            // Return a success response
+            echo json_encode(['success' => true, 'message' => 'OTP verified successfully']);
+        } else {
+            // Return an error response with error message
+            echo json_encode(['success' => false, 'error' => $response['error'] ?? 'Failed to verify OTP']);
+        }
+    }
+
+
     public function loginAction() {
 
         $data = json_decode(file_get_contents('php://input'), true);
