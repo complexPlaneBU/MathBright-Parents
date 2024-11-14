@@ -83,7 +83,7 @@ export async function renderSignupHTML() {
             <!-- OTP SCREEN -->
             <div id="otp-screen" class="screen hidden">
                 <h1>Verify your email address</h1>
-                <p>Verification code sent to <strong>{{ email }}</strong></p>
+                <p>Verification code sent to <strong id="email-display">{{ email }}</strong></p>
                 <h3>Type in the verification code</h3>
                 <form id="otp-form">
                     <input
@@ -350,7 +350,6 @@ export class AuthStateMachine {
                 this.state = 'userInfo';  // Transition to user info (name and password)
                 this.updateUI();
             } else {
-                alert(response.error || 'Invalid OTP');
                 document.querySelector('.otp-error').innerText = response.error;
             }
         }).catch((error) => {
@@ -457,6 +456,7 @@ export class AuthStateMachine {
                     document.getElementById('signup-screen').classList.remove('hidden');
                     break;
                 case 'otp':
+                    document.getElementById('email-display').innerText = this.email;
                     document.getElementById('otp-screen').classList.remove('hidden');
                     break;
                 case 'userInfo':
