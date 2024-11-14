@@ -1,4 +1,55 @@
-﻿
+﻿/* General Error Styling */
+.state-error {
+    color: red;
+    font-size: 14px;
+    background-color: #f8d7da; /* Light red background */
+    border: 1px solid #f5c6cb; /* Darker red border */
+    padding: 10px;
+    margin-top: 10px;
+    display: none; /* Initially hidden */
+}
+
+    /* Show the error message when there is content inside */
+    .state-error.show {
+        display: block;
+    }
+
+/* Specific error divs for each screen (generic approach) */
+#login-screen .login-error,
+#signup-screen .signup-error,
+#otp-screen .otp-error,
+#user-info-screen .user-info-error,
+#kids-registration-screen .kids-registration-error,
+#subscription-screen .subscription-error,
+#payment-screen .payment-error,
+#confirmation-screen .confirmation-error {
+    color: red;
+    font-size: 1rem;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+
+.login-container {
+    max-width: 400px; /* Maximum width of the form */
+    margin: 0 auto; /* Center the form horizontally */
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-logo {
+    font-weight: bold;
+    font-size: 2.4rem;
+    color: #007bff; /* Logo color matching primary button */
+    margin-bottom: 20px;
+}
+
 .screen {
     display: none; /* Hide the screen by default */
     width: 100%;
@@ -54,6 +105,19 @@
 }
 
     .signup-logo a {
+        text-decoration: none;
+        box-sizing: border-box; /* Include padding and border in element's total width and height */
+        color: #000;
+    }
+
+.login-logo {
+    font-weight: bold;
+    font-size: 2.4rem;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    color: #000;
+}
+
+    .login-logo a {
         text-decoration: none;
         box-sizing: border-box; /* Include padding and border in element's total width and height */
         color: #000;
@@ -197,3 +261,5 @@ p {
     #username-error-message.show {
         opacity: 1;
     }
+
+

@@ -14,19 +14,45 @@ document.head.appendChild(link);
 export async function renderSignupHTML() {
     try {
         const html = `
-            <div id="login-screen" class="screen">
-                <h1>Login</h1>
-                <form id="login-form">
-                    <label for="login-email">Email:</label>
-                    <input type="email" id="login-email" required />
-                    <label for="login-password">Password:</label>
-                    <input type="password" id="login-password" required />
-                    <button type="submit">Submit</button>
-                    <a href="#">Forgot Password?</a>
-                    <a href="#" id="signup-link">Sign Up</a>
+        <!-- Sign in -->
+            <div id="login-screen" class="screen">               
 
-                </form>
+                <div class="login-container">
+                    <!-- Logo -->
+                    <div class="login-logo"><a href="#">M<span style="color:#71AFFF">∂</span>thBright</a></div>
+
+
+                    <!-- Login Form -->
+                    <form id="loginForm">
+                        <!-- Email Field -->
+                        <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="-login-email" name="login-email" required placeholder="Enter your email">
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="login-password" required placeholder="Enter your password">
+                        </div>
+
+                        <!-- Sign In Button -->
+                        <button type="submit" class="btn">Sign In</button>
+
+                        <!-- Forgot Password Link -->
+                        <div class="link-container">
+                        <a href="#">I forgot my password</a>
+                        </div>
+
+                        <!-- Sign Up Link -->
+                        <div class="link-container">
+                        <p>Don't have an account? </p><p><a href="#" id="signup-link">Sign up now</a></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="login-error"></div>
             </div>
+
 
             <div id="signup-screen" class="screen hidden">
                 <h1>Signup</h1>
@@ -36,7 +62,12 @@ export async function renderSignupHTML() {
                     <button type="submit">Submit</button>
                     <a href="#" id="login-link">Already have an account? Login</a>
                 </form>
+                <div class="signup-error"></div>
+
+
+
             </div>
+
 
             <div id="otp-screen" class="screen hidden">
                 <h1>Enter OTP</h1>
@@ -45,16 +76,18 @@ export async function renderSignupHTML() {
                     <button type="submit">Verify OTP</button>
                 </form>
                 <button class="back-button">Back</button>
+                <div class="otp-error"></div>
             </div>
 
             <div id="user-info-screen" class="screen hidden">
                 <h1>Enter Your Info</h1>
-                <form id="signup-form">
+                <form id="user-info-form">
                     <input type="text" id="user-name" placeholder="Your Name" required />
                     <input type="password" id="user-password" placeholder="Create Password" required />
                     <button type="submit">Next</button>
                 </form>
                 <button class="back-button">Back</button>
+                <div class="user-info-error"></div>
             </div>
 
             <div id="kids-registration-screen" class="screen hidden">
@@ -68,6 +101,7 @@ export async function renderSignupHTML() {
                     <button type="submit">Next</button>
                 </form>
                 <button class="back-button">Back</button>
+                <div class="kids-registration-error"></div>
             </div>
 
             <div id="subscription-screen" class="screen hidden">
@@ -78,6 +112,7 @@ export async function renderSignupHTML() {
                     <button type="submit">Next</button>
                 </form>
                 <button class="back-button">Back</button>
+                <div class="subscription-error"></div>
             </div>
 
             <div id="payment-screen" class="screen hidden">
@@ -86,11 +121,13 @@ export async function renderSignupHTML() {
                     <button type="submit">Proceed to Payment</button>
                 </form>
                 <button class="back-button">Back</button>
+                <div class="payment-error"></div>
             </div>
 
             <div id="confirmation-screen" class="screen hidden">
                 <h1>Confirmation</h1>
                 <p>Your account is set up successfully!</p>
+                <div class="confirmation-error"></div>
             </div>
 
         `;
@@ -200,19 +237,7 @@ export class AuthStateMachine {
         }
     }
 
-    // Handle signup form submission
-    handleSignup(event) {
-        event.preventDefault();
-        this.email = document.getElementById('signup-email').value;
-
-        // Store email address in database
-
-        // Send email with OTP (One Time Password)
-
-        // Switch to the OTP screen
-        this.state = 'otp';  // Transition to OTP screen
-        this.updateUI();
-    }
+ 
 
 
 
@@ -220,26 +245,35 @@ export class AuthStateMachine {
     handleSignup(event) {
         event.preventDefault();
         this.email = document.getElementById('signup-email').value;
+        const errorDivs = document.querySelectorAll('.state-error'); // Get all the elements with the class "state-error"
+
+        // Clear previous error
+        document.querySelector('.signup-error').textContent = '';
 
         // Validate email address
         if (!this.email) {
-            alert('Please enter a valid email address.');
+            document.querySelector('.signup-error').textContent = 'Please enter a valid email address.';
             return;
         }
 
+        // Proceed with sending email to the server
         storeEmailAddress(this.email)
-            .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Switch to the OTP screen
-                    this.state = 'otp';  // Transition to OTP screen
+                    // Transition to OTP screen
+                    this.state = 'otp';
                     this.updateUI();
                 } else {
-                    alert(data.error || 'An unknown error occurred');
+                    document.querySelector('.signup-error').textContent = data.error || 'An unknown error occurred';
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                document.querySelector('.signup-error').textContent = 'There was a problem processing your request. Please try again later.';
+            });
     }
+
+
 
     // Verify OTP form submission
     verifyOtp(event) {
@@ -399,15 +433,15 @@ export class AuthStateMachine {
             const data = await response.json();
 
             if (data.success) {
-                return data;
+                return data;  // Return data on success
             } else {
-                console.log('storeEmailAddress failed:', data.error || 'Unknown error');
+                throw new Error(data.error || 'Error saving email.');
             }
         } catch (error) {
-            console.error('storeEmailAddress error:', error.message);
+            // Return a failure response for error handling in the frontend
+            console.error('Error in storeEmailAddress:', error.message);
+            return { success: false, error: error.message };
         }
-
-        return { success: false };  // Return failure if an error occurred
     }
 
 export async function renderSignupHTML_old() {
