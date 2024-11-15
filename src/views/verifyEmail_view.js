@@ -4,18 +4,31 @@ document.addEventListener('DOMContentLoaded', async function () {
     initializeApp();
 })
 
+
+
 async function initializeApp() {
-
-  //  renderVerifyEmailHTML();
-
     const verifyEmailSection = document.getElementById('verifyEmailSection');
     const tokenToVerify = verifyEmailSection.getAttribute('data-state');
 
-    const ret = verifyEmailToken("79f4b7a46b95e471657e7ce79e062ae7");
-
+    const verificationStatus = await verifyEmailToken(tokenToVerify);
+    updateVerificationStatus(verificationStatus);
 }
 
+function updateVerificationStatus({ success, error }) {
+    const verificationStatus = document.querySelector('.verification-status');
+    const loader = verificationStatus.querySelector('.loader');
+    const successMessage = verificationStatus.querySelector('.success-message');
+    const errorMessage = verificationStatus.querySelector('.error-message');
 
+    loader.style.display = 'none';
+
+    if (success) {
+        successMessage.style.display = 'block';
+    } else {
+        errorMessage.style.display = 'block';
+        document.getElementById('error-message').innerText = error;
+    }
+}
 
 
 async function verifyEmailToken(token) {
