@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -81,6 +81,12 @@
         .error-message p {
             color: #e74c3c;
         }
+
+        .resend-link {
+            color: #3498db;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -93,6 +99,12 @@
 </div>
 
 <div> verifyEmail View </div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand"><a href="#">M<span style="color:#71AFFF">∂</span>thBright</a></div>
+        </div>
+    </nav>
 
 <section id="verifyEmailSection" data-state="<?= $token ?>">
 
@@ -113,7 +125,9 @@
             </div>
 
             <div id="errorMessage" class="message error hidden">
-                Sorry, we couldn�t verify the token. Please check your token and try again.
+                Sorry, we couldn’t verify the token. Please check your token and try again.
+                <br>
+                <a href="#" id="resendLink" class="resend-link">Click here to send a new verification email.</a>
             </div>
         </div>
 
@@ -125,12 +139,18 @@
         initializeApp();
     });
 
+    let tokenToResend;
+    let emailToVerify;
+    let idToVerify;
+    let otpToVerify;
+
     async function initializeApp() {
         const verifyEmailSection = document.getElementById('verifyEmailSection');
         const tokenToVerify = verifyEmailSection.getAttribute('data-state');
 
         // Call the API to verify the email token
         const result = await verifyEmailToken(tokenToVerify);
+        tokenToResend = tokenToVerify;
 
         // Display the success or error message based on the result
         if (result.success) {
@@ -164,13 +184,17 @@
         }, 1000); // Update every second
     }
 
-
-
-    // Function to show the error message
+    // Function to show the error message with a resend link
     function showErrorMessage(error) {
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('errorMessage').classList.remove('hidden');
         document.getElementById('messageContainer').classList.remove('hidden');
+
+        // Show the resend verification email link
+        document.getElementById('resendLink').addEventListener('click', async function (e) {
+            e.preventDefault(); // Prevent the default link action
+            await resendVerificationEmail(emailToVerify);
+        });
     }
 
     // Function to verify the email token
@@ -189,6 +213,17 @@
 
             const data = await response.json();
 
+            if (data.email) {
+                emailToVerify = data.email;
+            }
+            if (data.otp) {
+                otpToVerify = data.otp;
+            }
+            if (data.id) {
+                idToVerify = data.id;
+            }
+
+            
             if (data.success) {
                 return { success: true }; // Return success
             } else {
@@ -198,6 +233,37 @@
             // Catch fetch or network errors
             console.error('Error verifying token:', error.message);
             return { success: false, error: error.message };
+        }
+    }
+
+    async function resendVerificationEmail(emailToVerify) {
+        try {
+            const url = 'https://api.mathbright.co/signup/sendVerificationEmail';
+            const postData = {
+                email: emailToVerify,
+                otp: otpToVerify
+            };
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'  // Set the content type to application/json
+                },
+                body: JSON.stringify(postData)  // Send the postData as a JSON string
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log('Verification email sent successfully:', data);
+                alert('A new verification email has been sent.');
+            } else {
+                console.log('Error sending verification email:', data.error);
+                alert('Error sending verification email: ' + data.error);
+            }
+        } catch (error) {
+            console.error('Error sending verification email:', error.message, error.stack);
+            alert('Failed to send verification email. Please try again later.');
         }
     }
 </script>
